@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'Perez.Cordero'
+version = '1.0'
+
+/*************** LIBRERIA PARA PUBLICAR ***********************/
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+publishing {
+
+    publications {
+
+        library(MavenPublication) {
+
+            from components.java
+            artifact sourcesJar
+
+        }
+    }
+
+    repositories {
+
+        maven {
+
+            // URL de tu repositorio GitHub
+            url "https://github.com/RuuuByyy/Llibreria_Fitxers.git"
+
+        }
+    }
+}
+
+/*************** FIN PUBLICACION ***********************/
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+}
+
+test {
+    useJUnitPlatform()
+}
