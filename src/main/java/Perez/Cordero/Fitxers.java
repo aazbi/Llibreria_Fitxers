@@ -1,9 +1,6 @@
 package Perez.Cordero;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -109,6 +106,36 @@ public class Fitxers {
         }
         return llista;
     }
+    /**
+     * Retorna un objecte del fitxer ja formatat correctament amb la classe que li passem per paràmetre
+     * d'aquesta manera no cal fer un cast a l'objecte després de retornar-lo.
+     * @param <T> Tipus de l'objecte a transformar
+     * @param classe Classe de l'objecte a transformar
+     * @return Objecte llegit del fitxer
+     */
+    public <T> Object retornaObjectesFitxer(T classe){
+        List<T> LObjs = new ArrayList<>();
+        try {
+            ObjectInputStream in = new ObjectInputStream(
+                    new FileInputStream(nomFitxer));
+            do {
+                T obj = (T) in.readObject();
+                LObjs.add(obj);
+            } while (in != null);
+            in.close();                     // tanquem el fitxer d'objectes
+            in = null;                      // i l'allibrerem de memòria
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            //System.err.println("\nFinal Fitxer");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return LObjs;
+    }
+
+
+
 //
 
 }
