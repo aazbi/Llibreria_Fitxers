@@ -134,9 +134,35 @@ public class Fitxers {
         return LObjs;
     }
 
+    /**
+     * Guarda un objecte al fitxer binari mitjançant serialització
+     * @param obj Objecte a guardar (ha d'implementar Serializable)
+     */
+    public void guardarObjecte(Object obj) {
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream(nomFitxer))) {
+            out.writeObject(obj);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    /**
+     * Llegeix un únic objecte del fitxer binari
+     * @return L'objecte llegit, o null si el fitxer no existeix o hi ha error
+     */
+    public Object llegirObjecte() {
+        File f = new File(nomFitxer);
+        if (!f.exists()) return null;
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(nomFitxer))) {
+            return in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            return null;
+        }
+    }
 
-//
+    //</editor-fold>
 
 }
 
