@@ -1,0 +1,18 @@
+import Perez.Cordero.Fitxers;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // 1. Instanciar
+        Fitxers f = new Fitxers("test.txt");
+        
+        // 2. Probar escritura
+        f.escriuFitxerText("Hola examen", false);
+        
+        // 3. Probar lectura
+        List<String> contenido = f.retornaContingutFitxerLlista();
+        if(!contenido.isEmpty() && contenido.get(0).equals("Hola examen")) {
+            System.out.println("✅ Librería vinculada y funcionando.");
+        }
+    }
+}
